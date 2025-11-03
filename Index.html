@@ -63,14 +63,26 @@
                 event.preventDefault();
             }
         });
-        function controlloRiga(){
+        function controlloRiga() {
             let bottone = [];
             let j = 0;
+            let vittoria = 0;
 
-            for(let i = (currentIndex-5); i < currentIndex; i++){
-                bottone[j] = document.getElementById(i);
+            for (let i = (currentIndex - 5); i < currentIndex; i++) {
+                bottone[j] = document.getElementById("" + i);
+
+                if (bottone[j].value === arraySoluzione[j]) {
+                    bottone[j].style.backgroundColor = "green";
+                    vittoria++;
+                } else if (arraySoluzione.includes(bottone[j].value)) {
+                    bottone[j].style.backgroundColor = "yellow";
+                }
                 bottone[j].disabled = true;
                 j++;
+            }
+            if (vittoria === 5) {
+                alert("HAI VINTO");
+                location.reload();
             }
         }
         function leggiFile(){
@@ -80,9 +92,9 @@
             reader.onload = function(event) {
                 let testo = event.target.result;
                 let listaParole = testo.split(';');
-                soluzione = listaParole[Math.floor(Math.random() * listaParole.length)];
+                soluzione = listaParole[Math.floor(Math.random() * listaParole.length)].trim();
                 arraySoluzione= soluzione.split('');
-                alert(soluzione);
+                //alert(soluzione);
 
                 tabella();
                 document.getElementById("d1").style.display="none";
