@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap');
+
+h1 {
+    color: limegreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Momo Signature', serif;
+}
+#d1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Momo Signature', serif;
+}
+#t {
+    border: 1px solid black;
+    height: 30vw;
+    width: 25vw;
+    margin-top: 5vw;
+    margin-left: 35vw;
+}

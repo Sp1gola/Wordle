@@ -1,16 +1,26 @@
-<html>
+<html lang="">
     <head>
         <meta charset="UTF-8">
-        <title>Wordle</title>
+        <title>Sp1gola's Wordle</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <table id = "t" style="border: 1px solid black; height: 30vw; width: 25vw; margin-top: 5vw; margin-left: 35vw"></table>
+    <h1>Welcome to Sp1gola's Wordle</h1>
+    <div id="d1">
+        <label for="myfile">Select a file:</label>
+        <input type="file" id="myfile" name="myfile">
+        <input type="Button" value="Load" onclick="leggiFile()">
+    </div>
+        <table id="t"></table>
     </body>
     <script>
         let contenuto = "";
         let id = 0;
         let currentIndex = 0;
         let tentativo = 1;
+        let soluzione = "";
+        let arraySoluzione;
+
         function tabella() {
             for(let i = 0 ; i < 6; i++){
                 contenuto = contenuto + "<tr>" +
@@ -24,7 +34,6 @@
             }
             document.getElementById("t").innerHTML = contenuto;
         }
-        tabella();
 
         document.addEventListener('keydown', (event) => {
             const key = event.key;
@@ -37,7 +46,7 @@
 
             if(key === 'Enter' && currentIndex === tentativo * 5){
                 if(tentativo === 6){
-                    alert("hai perso");
+                    alert("hai perso, la soluzione era: "+soluzione);
                 }
                 controlloRiga();
                 tentativo++;
@@ -54,15 +63,32 @@
                 event.preventDefault();
             }
         });
-        
         function controlloRiga(){
-            let bottone1 = [];
+            let bottone = [];
             let j = 0;
+
             for(let i = (currentIndex-5); i < currentIndex; i++){
-                bottone1[j] = document.getElementById(i);
-                bottone1[j].disabled = true;
+                bottone[j] = document.getElementById(i);
+                bottone[j].disabled = true;
                 j++;
             }
+        }
+        function leggiFile(){
+            let file = document.querySelector('input').files[0];
+            let reader = new FileReader();
+
+            reader.onload = function(event) {
+                let testo = event.target.result;
+                let listaParole = testo.split(';');
+                soluzione = listaParole[Math.floor(Math.random() * listaParole.length)];
+                arraySoluzione= soluzione.split('');
+                alert(soluzione);
+
+                tabella();
+                document.getElementById("d1").style.display="none";
+                document.querySelector('input[type="button"]').disabled = true;
+            };
+            reader.readAsText(file);
         }
     </script>
 </html>
